@@ -44,18 +44,19 @@ public class ColorPreferences extends ListPreference implements FontColorInterfa
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
           if(defaultValue!=null) {
-              selectedColor = new TapColor(
-                      restoreValue ? this.getPersistedString(null) : ((TapColor) defaultValue).getName(),
-                      ((TapColor) defaultValue).getCode());
+              String bb = (defaultValue!=null && (((String) defaultValue).split("_").length >1 ) ?
+                      ((String) defaultValue).split("_")[1]: "#000000");
+
+              selectedColor = new TapColor( restoreValue ? this.getPersistedString(null) : (String) defaultValue, bb);
+
                this.updateSummary();
           }
 
     }
 
     @Override
-    protected TapColor onGetDefaultValue(TypedArray a, int index) {
-        if(tapColorsArray==null) prepareColorsArray();
-        return tapColorsArray.get(index);
+    protected Object onGetDefaultValue(TypedArray a, int index) {
+        return a.getString(index);
     }
 
 
