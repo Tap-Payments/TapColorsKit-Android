@@ -4,7 +4,7 @@
     >
 
     <com.tap.tapcolorskit.ColorPreferences
-        android:defaultValue="null"
+        android:defaultValue="@string/font_color_default_value"
         android:key="@string/preference_color_key"
         android:title="@string/color_title"
         tapcolorlistpreference:tap_fontPreviewString="@string/font_preview_string"

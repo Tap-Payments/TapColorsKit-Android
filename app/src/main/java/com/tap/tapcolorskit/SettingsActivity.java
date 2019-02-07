@@ -26,6 +26,7 @@ public class SettingsActivity extends AppCompatActivity {
         private Preference fontColorPref;
         @Override
         public void onCreate(final Bundle savedInstanceState) {
+
             super.onCreate(savedInstanceState);
 
             this.addPreferencesFromResource(R.xml.preferences);
@@ -52,16 +53,13 @@ public class SettingsActivity extends AppCompatActivity {
             if (fontColorPref != null && key.equals(fontColorPref.getKey())) {
                 final String value = sharedPreferences.getString(key, "");
                 if(value!=null)
-                fontColorPref.setSummary(
-                        value.split("_").length>1?value.split("_")[0] + "("+value.split("_")[1] +")" :
-                                value );
+                    fontColorPref.setSummary(value);
             }
         }
 
         private void updateSummary(Preference fontColorPref){
-            if(fontColorPref!=null){
-                fontColorPref.setSummary(fontColorPref.getSummary());
-            }
+            String summary = this.getPreferenceManager().getSharedPreferences().getString(fontColorPref.getKey(),"");
+            fontColorPref.setSummary(summary);
         }
     }
 }

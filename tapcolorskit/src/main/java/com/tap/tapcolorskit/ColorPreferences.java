@@ -44,8 +44,8 @@ public class ColorPreferences extends ListPreference implements FontColorInterfa
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
           if(defaultValue!=null) {
-              String bb = (defaultValue!=null && (((String) defaultValue).split("_").length >1 ) ?
-                      ((String) defaultValue).split("_")[1]: "#000000");
+              String bb = (defaultValue!=null && (((String) defaultValue).split("-").length >1 ) ?
+                      ((String) defaultValue).split("-")[1]: "#000000");
 
               selectedColor = new TapColor( restoreValue ? this.getPersistedString(null) : (String) defaultValue, bb);
 
@@ -77,14 +77,30 @@ public class ColorPreferences extends ListPreference implements FontColorInterfa
         final CustomListPreferenceAdapter customListPreferenceAdapter = new CustomListPreferenceAdapter(tapColorsArray,
                 fontPreview, selectedColor,this);
 
-        builder.setAdapter(customListPreferenceAdapter, null);
+//        builder.setAdapter(customListPreferenceAdapter, null);
+
+        builder.setAdapter(customListPreferenceAdapter, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(final DialogInterface dialog, final int which) {
+                if (shouldPersist()) {
+                    final TapColor selectedFont = tapColorsArray.get(which);
+
+                    if (callChangeListener(selectedFont.getName())) {
+                        selectedColor = selectedFont;
+                        updateSummary();
+                        persistString(selectedColor.getName()+"-"+selectedColor.getCode());
+                    }
+                }
+                dialog.cancel();
+            }
+        });
 
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if(selectedColor!=null){
                     updateSummary();
-                    persistString(selectedColor.getName()+"_"+selectedColor.getCode());
+                    persistString(selectedColor.getName()+"-"+selectedColor.getCode());
                 }
             }
         });
@@ -92,7 +108,7 @@ public class ColorPreferences extends ListPreference implements FontColorInterfa
 
     void updateSummary() {
         if (selectedColor != null) {
-            this.setSummary(selectedColor.getName() + "("+selectedColor.getCode()+")");
+            this.setSummary(selectedColor.getName()+"("+selectedColor.getCode()+")");
         }
     }
 

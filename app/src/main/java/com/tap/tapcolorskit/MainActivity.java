@@ -20,8 +20,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView fontTextView = this.findViewById(R.id.font);
         final String fontColor = sharedPreferences.getString("preference_color_key", this.getString(R.string.font_color_default_value));
 
-        fontTextView.setTextColor(Color.parseColor(fontColor.split("_").length > 1 ? fontColor.split("_")[1]:
-                this.getString(R.string.font_color_default_value)));
+        fontTextView.setTextColor(Color.parseColor(fontColor.split("-").length > 1 ? fontColor.split("-")[1]:"#000000"));
 
     }
 
@@ -33,8 +32,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView fontTextView = this.findViewById(R.id.font);
         final String fontColor = sharedPreferences.getString("preference_color_key", this.getString(R.string.font_color_default_value));
 
-        fontTextView.setTextColor(Color.parseColor(fontColor.split("_").length > 1 ? fontColor.split("_")[1]:
-                this.getString(R.string.font_color_default_value)));
+        fontTextView.setTextColor(Color.parseColor(fontColor.split("-").length > 1 ? fontColor.split("-")[1]:"#000000"));
     }
 
     @Override
