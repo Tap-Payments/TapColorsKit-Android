@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="vibrant_green">#2ACE00</color>
     <color name="Black">#000000</color>
     <color name="White">#FFFFFF</color>
     <color name="Ivory">#FFFFF0</color>
@@ -142,6 +143,7 @@
     <color name="Navy">#000080</color>
 
     <array name="colors">
+        <item name="Vibrant">@color/vibrant_green</item>
         <item name="Black">@color/Black</item>
         <item name="White">@color/White</item>
         <item name="Ivory">@color/Ivory</item>
